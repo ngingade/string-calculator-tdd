@@ -3,10 +3,23 @@ const add = (str) => {
     return 0;
   }
 
-  const breakpoint = /\n|\,/;
+  let subStr = str.split("//")[1];
+  const regX_1 = "\n";
 
-  const allNumbers = str.split(breakpoint);
-  return allNumbers.reduce((a, b) => Number(a) + Number(b), 0);
+  const delemter = subStr.substring(0, 1);
+
+  if (!delemter) {
+    return "Delemeter is missing";
+  }
+
+  const finalRegX = new RegExp(regX_1 + "|" + delemter);
+
+  subStr = delemter ? subStr : str;
+
+  const allNumbers = subStr.split(finalRegX);
+  const sum = allNumbers.reduce((a, b) => Number(a) + Number(b), 0);
+
+  return isNaN(sum) ? "The passed string is invalid" : sum;
 };
 
 module.exports = add;
